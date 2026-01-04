@@ -10,6 +10,8 @@ import { motion, useReducedMotion } from "framer-motion"
 import { Check, Github, Inbox, Mail, Search, Shield, Sparkles, Star, Zap } from "lucide-react"
 import { Authenticated, Unauthenticated } from "convex/react"
 
+export const dynamic = "force-dynamic"
+
 export default function LandingPage() {
   const shouldReduceMotion = useReducedMotion()
 
