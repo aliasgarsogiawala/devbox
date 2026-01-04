@@ -4,8 +4,33 @@ import { useAuthActions } from "@convex-dev/auth/react"
 import { Button } from "@/components/ui/button"
 import { Github, Mail } from "lucide-react"
 
-export function SignInButton() {
+export function SignInButton({ compact = false }: { compact?: boolean }) {
   const { signIn } = useAuthActions()
+
+  if (compact) {
+    return (
+      <div className="flex gap-2">
+        <Button
+          onClick={() => void signIn("google")}
+          variant="outline"
+          size="sm"
+          className="gap-2"
+        >
+          <Mail className="w-4 h-4" />
+          Google
+        </Button>
+        <Button
+          onClick={() => void signIn("github")}
+          variant="outline"
+          size="sm"
+          className="gap-2"
+        >
+          <Github className="w-4 h-4" />
+          GitHub
+        </Button>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col gap-3 max-w-sm mx-auto p-6 border border-border/60 rounded-2xl bg-card/50">
@@ -39,7 +64,7 @@ export function SignInButton() {
   )
 }
 
-export function SignOutButton() {
+function SignOutButtonComponent() {
   const { signOut } = useAuthActions()
 
   return (
@@ -48,3 +73,5 @@ export function SignOutButton() {
     </Button>
   )
 }
+
+export const SignOutButton = SignOutButtonComponent

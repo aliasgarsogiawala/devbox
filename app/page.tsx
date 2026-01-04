@@ -2,13 +2,15 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { SignInButton, SignOutButton } from "@/components/auth/sign-in-button"
 import type { Variants } from "framer-motion"
 import { motion, useReducedMotion } from "framer-motion"
 import { Check, Github, Inbox, Mail, Search, Shield, Sparkles, Star, Zap } from "lucide-react"
+import { Authenticated, Unauthenticated } from "convex/react"
 
 export default function LandingPage() {
-  const [email, setEmail] = useState("")
   const shouldReduceMotion = useReducedMotion()
 
   const fadeUp: Variants = {
@@ -53,11 +55,17 @@ export default function LandingPage() {
             >
               <Github className="w-5 h-5" />
             </a>
-            <Link href="/inbox">
-              <Button variant="outline" size="sm">
-                Open Inbox
-              </Button>
-            </Link>
+            <Authenticated>
+              <Link href="/inbox">
+                <Button variant="outline" size="sm">
+                  Open Inbox
+                </Button>
+              </Link>
+              <SignOutButton />
+            </Authenticated>
+            <Unauthenticated>
+              <SignInButton compact />
+            </Unauthenticated>
           </div>
         </div>
       </nav>
@@ -115,12 +123,19 @@ export default function LandingPage() {
                 custom={0.24}
                 className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
               >
-                <Link href="/inbox">
-                  <Button size="lg" className="gap-2 shadow-sm">
-                    <Inbox className="w-4 h-4" />
-                    Open the Inbox
-                  </Button>
-                </Link>
+                <Unauthenticated>
+                  <SignInButton />
+                </Unauthenticated>
+
+                <Authenticated>
+                  <Link href="/inbox">
+                    <Button size="lg" className="gap-2 shadow-sm">
+                      <Inbox className="w-4 h-4" />
+                      Open the Inbox
+                    </Button>
+                  </Link>
+                </Authenticated>
+
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer">
                   <Button size="lg" variant="outline" className="gap-2 bg-transparent">
                     <Star className="w-4 h-4" />
@@ -258,8 +273,15 @@ export default function LandingPage() {
               </ul>
             </div>
             <div className="hidden md:flex items-center justify-center">
-              <div className="w-full aspect-square rounded-2xl border border-border/60 bg-gradient-to-br from-primary/8 to-primary/15 flex items-center justify-center">
-                <Mail className="w-28 h-28 text-primary/25" />
+              <div className="w-full rounded-2xl border border-border/60 bg-gradient-to-br from-primary/8 to-primary/15 flex items-center justify-center overflow-hidden">
+                <Image
+                  src="/picc.png"
+                  alt="Everything in one place illustration"
+                  width={1280}
+                  height={800}
+                  className="w-full h-auto object-contain"
+                  priority
+                />
               </div>
             </div>
           </motion.div>
@@ -395,24 +417,30 @@ export default function LandingPage() {
               </div>
 
               <div className="w-full">
-                <div className="flex flex-col sm:flex-row gap-3 w-full">
-                  <input
-                    type="email"
-                    placeholder="you@company.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="flex-1 px-4 py-3 rounded-xl border border-border/60 bg-background/60 text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/50 transition"
-                    aria-label="Email address"
-                  />
-                  <Button className="h-12">Get updates</Button>
-                </div>
+                <Unauthenticated>
+                  <div className="space-y-4">
+                    <SignInButton />
+                    <p className="text-xs text-foreground/50 text-center">
+                      Sign in with Google or GitHub to get started
+                    </p>
+                  </div>
+                </Unauthenticated>
 
-                <div className="mt-4 flex items-center justify-center lg:justify-start gap-3">
-                  <Link href="/inbox">
-                    <Button variant="outline" className="bg-transparent">
-                      Explore Inbox
-                    </Button>
-                  </Link>
+                <Authenticated>
+                  <div className="flex flex-col gap-3">
+                    <Link href="/inbox">
+                      <Button size="lg" className="w-full gap-2">
+                        <Inbox className="w-4 h-4" />
+                        Go to Inbox
+                      </Button>
+                    </Link>
+                    <p className="text-xs text-foreground/50 text-center">
+                      You're signed in! Ready to organize your emails.
+                    </p>
+                  </div>
+                </Authenticated>
+
+                <div className="mt-6 flex items-center justify-center lg:justify-start gap-3">
                   <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-sm text-foreground/60 hover:text-foreground transition">
                     View on GitHub
                   </a>
