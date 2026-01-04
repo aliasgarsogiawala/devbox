@@ -43,9 +43,13 @@ export default function LandingPage() {
       <nav className="sticky top-0 z-40 bg-background/80 backdrop-blur border-b border-border/50">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center text-primary-foreground font-bold text-sm shadow-sm">
-              D
-            </div>
+            <Image
+              src="/devbox.png"
+              alt="DevBox Logo"
+              width={36}
+              height={36}
+              className="w-9 h-9 rounded-xl"
+            />
             <span className="text-lg font-semibold tracking-tight">DevBox</span>
           </div>
           <div className="flex items-center gap-6">

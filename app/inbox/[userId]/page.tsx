@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation"
 import { useQuery, useMutation } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { Authenticated, Unauthenticated } from "convex/react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { SignInButton } from "@/components/auth/sign-in-button"
@@ -125,9 +126,13 @@ function UserInboxContent() {
       <div className="border-b border-border">
         <div className="px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground font-bold">
-              D
-            </div>
+            <Image
+              src="/devbox.png"
+              alt="DevBox Logo"
+              width={32}
+              height={32}
+              className="w-8 h-8 rounded-lg"
+            />
             <h1 className="text-2xl font-bold">DevBox Inbox</h1>
             <span className="text-sm text-foreground/60">
               {currentUser.email}
