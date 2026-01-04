@@ -16,14 +16,19 @@ function InboxRedirect() {
   
   // Debug: Log current user
   useEffect(() => {
-    console.log("Current user:", currentUser)
+    console.log("Current user object:", currentUser)
+    console.log("Current user keys:", currentUser ? Object.keys(currentUser) : "null")
+    console.log("Current user _id:", currentUser?._id)
   }, [currentUser])
   
   // Redirect to user-specific inbox URL
   useEffect(() => {
-    if (currentUser) {
-      console.log("Redirecting to:", `/inbox/${currentUser._id}`)
-      router.push(`/inbox/${currentUser._id}`)
+    if (currentUser && currentUser._id) {
+      const redirectUrl = `/inbox/${currentUser._id}`
+      console.log("Redirecting to:", redirectUrl)
+      router.push(redirectUrl)
+    } else if (currentUser) {
+      console.error("User exists but no _id:", currentUser)
     }
   }, [currentUser, router])
 

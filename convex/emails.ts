@@ -7,7 +7,12 @@ export const getCurrentUser = query({
   args: {},
   handler: async (ctx) => {
     const userId = await auth.getUserId(ctx)
-    if (!userId) return null
+    if (!userId) {
+      console.log("No userId found in auth")
+      return null
+    }
+    
+    console.log("Auth userId:", userId)
     
     // Get user from auth tables - this returns the user document from the users table
     const user = await ctx.db.get(userId)
@@ -17,8 +22,14 @@ export const getCurrentUser = query({
       return null
     }
     
-    console.log("Found user:", { _id: userId, email: user.email })
-    return user
+    // Return user with explicit _id field
+    const userWithId = {
+      ...user,
+      _id: userId,
+    }
+    
+    console.log("Returning user:", userWithId)
+    return userWithId
   },
 })
 
