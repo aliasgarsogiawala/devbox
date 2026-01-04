@@ -14,9 +14,15 @@ function InboxRedirect() {
   const router = useRouter()
   const currentUser = useQuery(api.emails.getCurrentUser)
   
+  // Debug: Log current user
+  useEffect(() => {
+    console.log("Current user:", currentUser)
+  }, [currentUser])
+  
   // Redirect to user-specific inbox URL
   useEffect(() => {
     if (currentUser) {
+      console.log("Redirecting to:", `/inbox/${currentUser._id}`)
       router.push(`/inbox/${currentUser._id}`)
     }
   }, [currentUser, router])

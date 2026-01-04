@@ -4,19 +4,10 @@ import { v } from "convex/values"
 
 const schema = defineSchema({
   ...authTables,
-  
-  // Users table (extends auth tables)
-  users: defineTable({
-    name: v.optional(v.string()),
-    email: v.string(),
-    image: v.optional(v.string()),
-    emailAddress: v.optional(v.string()), // For OAuth email forwarding address
-    isEmailVerified: v.optional(v.boolean()),
-  }).index("by_email", ["email"]),
 
   // Emails/Messages table
   emails: defineTable({
-    userId: v.id("users"),
+    userId: v.id("users"), // References the users table from authTables
     
     // Email metadata
     subject: v.string(),

@@ -2,14 +2,23 @@ import { v } from "convex/values"
 import { mutation, query } from "./_generated/server"
 import { auth } from "./auth"
 
-// Get current user
+// Get current authenticated user
 export const getCurrentUser = query({
   args: {},
   handler: async (ctx) => {
     const userId = await auth.getUserId(ctx)
     if (!userId) return null
     
-    return await ctx.db.get(userId)
+    // Get user from auth tables - this returns the user document from the users table
+    const user = await ctx.db.get(userId)
+    
+    if (!user) {
+      console.error("User not found for ID:", userId)
+      return null
+    }
+    
+    console.log("Found user:", { _id: userId, email: user.email })
+    return user
   },
 })
 
