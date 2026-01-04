@@ -54,7 +54,7 @@ export default function LandingPage() {
           </div>
           <div className="flex items-center gap-6">
             <a
-              href="https://github.com"
+              href="https://github.com/aliasgarsogiawala/devbox"
               target="_blank"
               rel="noopener noreferrer"
               className="text-foreground/60 hover:text-foreground transition"
@@ -142,7 +142,7 @@ export default function LandingPage() {
                   </Link>
                 </Authenticated>
 
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/aliasgarsogiawala/devbox" target="_blank" rel="noopener noreferrer">
                   <Button size="lg" variant="outline" className="gap-2 bg-transparent">
                     <Star className="w-4 h-4" />
                     Star on GitHub
