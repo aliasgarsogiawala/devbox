@@ -9,6 +9,7 @@ import type { Variants } from "framer-motion"
 import { motion, useReducedMotion } from "framer-motion"
 import { Check, Github, Inbox, Mail, Search, Shield, Sparkles, Star, Zap } from "lucide-react"
 import { Authenticated, Unauthenticated } from "convex/react"
+import { MailScrollAnimation } from "@/components/mail-scroll-animation"
 
 export const dynamic = "force-dynamic"
 
@@ -39,6 +40,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-clip selection:bg-primary/20">
+      <MailScrollAnimation shouldReduceMotion={shouldReduceMotion} />
       {/* Background patterns */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />
